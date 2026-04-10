@@ -185,6 +185,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   name = "Thor Schou"
   headline = "Student at Cphbusiness"
   bio = "Welcome to my portfolio site."
+  image = "https://github.com/ThorSchou.png"
   links = [
     { github = "https://github.com/ThorSchou" }
   ]
