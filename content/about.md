@@ -1,5 +1,6 @@
 ---
 title: "About Me"
+showAuthor: false
 ---
 
 Hi, I'm Thor Asbjørn Schou, a Datamatiker student at Cphbusiness in Lyngby.
