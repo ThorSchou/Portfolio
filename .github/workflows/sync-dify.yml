@@ -1,0 +1,56 @@
+name: Sync content to Dify Knowledge Base
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync markdown files to Dify
+        env:
+          DIFY_API_KEY: ${{ secrets.DIFY_API_KEY }}
+          DATASET_ID: 14db97c1-ade2-40e4-8600-04c12b622122
+        run: |
+          # Get list of existing documents in Dify
+          EXISTING=$(curl -s -X GET \
+            "https://api.dify.ai/v1/datasets/${DATASET_ID}/documents?limit=100" \
+            -H "Authorization: Bearer ${DIFY_API_KEY}")
+
+          # Loop through all markdown files in content folder
+          find content -name "*.md" | while read filepath; do
+            filename=$(basename "$filepath")
+            
+            # Check if document already exists
+            DOC_ID=$(echo $EXISTING | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          docs = data.get('data', [])
+          match = next((d['id'] for d in docs if d['name'] == '$filename'), None)
+          print(match or '')
+          ")
+
+            if [ -n "$DOC_ID" ]; then
+              echo "Updating existing document: $filename (ID: $DOC_ID)"
+              # Delete old version
+              curl -s -X DELETE \
+                "https://api.dify.ai/v1/datasets/${DATASET_ID}/documents/${DOC_ID}" \
+                -H "Authorization: Bearer ${DIFY_API_KEY}"
+            else
+              echo "Creating new document: $filename"
+            fi
+
+            # Upload the file
+            curl -s -X POST \
+              "https://api.dify.ai/v1/datasets/${DATASET_ID}/document/create-by-file" \
+              -H "Authorization: Bearer ${DIFY_API_KEY}" \
+              -F "file=@${filepath};type=text/plain" \
+              -F 'data={"indexing_technique":"high_quality","process_rule":{"mode":"automatic"}}'
+            
+            echo "✅ Synced: $filename"
+          done
