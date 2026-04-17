@@ -3,7 +3,7 @@ title: "My First Project"
 date: 2026-04-17
 categories: ["Projects"]
 tags: ["java", "git", "portfolio"]
-url: "https://ThorSchou.github.io/Portfolio/posts/first-project/"
+canonicalURL: "https://ThorSchou.github.io/Portfolio/posts/first-project/"
 ---
 
 This is my first post on my portfolio. I'm currently studying software development

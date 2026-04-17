@@ -5,7 +5,7 @@ showEdit: false
 showWordCount: false
 showReadingTime: false
 showDate: false
-url: "https://ThorSchou.github.io/Portfolio/about/"
+canonicalURL: https://ThorSchou.github.io/Portfolio/about/
 ---
 
 Hi, I'm Thor Asbjørn Schou, a Datamatiker student at Cphbusiness in Lyngby.
