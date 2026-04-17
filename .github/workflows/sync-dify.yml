@@ -23,7 +23,7 @@ jobs:
             -H "Authorization: Bearer ${DIFY_API_KEY}")
 
           # Loop through all markdown files in content folder
-          find content -name "*.md" | while read filepath; do
+          find content -name "*.md" ! -name "_index.md" | while read filepath; do
             filename=$(basename "$filepath")
             
             # Check if document already exists
