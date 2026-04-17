@@ -3,6 +3,7 @@ title: "Setting Up Hugo with Blowfish"
 date: 2026-04-17
 categories: ["Tutorials"]
 tags: ["hugo", "blowfish", "github-pages"]
+url: "https://ThorSchou.github.io/Portfolio/posts/hugo-setup/"
 ---
 
 In this post I document how I set up my portfolio using Hugo and the Blowfish theme.
